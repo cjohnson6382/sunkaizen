@@ -20,6 +20,8 @@ export const dbFetcher = db => type => action => {
 			return update(db, action);
 		case 'DELETE':
 			return remove(db, action);
+		case 'SEARCH':
+			return search(db, action)
 	}
 
 	console.log('dbFetcher: action.type failed to match');
@@ -30,6 +32,7 @@ export const dbFetcher = db => type => action => {
 function create(db, action) {
 	//	return action.value === ''
 	return dispatch => {
+		
 		//	create syntax for DB....
 		//	db.
 	}
@@ -73,11 +76,26 @@ function update(db, action) {
 
 
 function remove(db, action) {
-	db.deleteOne({ id: parseInt(action.query) })
+	return dispatch => {
+		db.deleteOne({ id: parseInt(action.query) })
 		.then(s => { return dispatch => console.log('deleted inspection; no state change') })
 		.catch(e => console.log(e.trace));
+	};
 }
 
+
+function search(db, action) {
+	return dispatch => {
+		//	I don't remember how mongo works exactly, but this is supposed to return all inspections should the client provide no query
+		let query = action.query && action.query !== '' ? { $text: { $search: action.query } } : {};
+		
+		db.find(query).toArray()
+			.then(list => {
+				dispatch(setState(['inspections', List(list)]));
+			})
+			.catch(e => console.log(e.stack));
+	};
+}
 
 
 

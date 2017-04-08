@@ -50,7 +50,7 @@ socket.on('inspections', inspections => {
 //	below is JSX that's automatically Babeled into real Javascript
 const routes = <Route component={App}>
 	<Route path="/" component={InspectionListContainer} />
-	<Route path="/inspection/:id" component={Inspection} />
+	<Route path="/inspection" component={Inspection} />
 </Route>;
 
 //	more JSX; puts the <Provider> into the app div on index.html
