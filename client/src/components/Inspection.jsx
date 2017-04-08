@@ -10,9 +10,8 @@ import { Form } from 'react-bootstrap';
 
 import CheckboxField from './CheckboxField';
 
-export const Inspection = ({ match }) => {
-
-	constructor(props) {
+class Inspection extends React.Component {
+	constructor (props) {
 		super(props);
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
@@ -27,14 +26,13 @@ export const Inspection = ({ match }) => {
 	
 	buildInspection () {
 		const inspectionJst = checklist.fields.map((field) => {
-			return (<CheckboxField {...this.props} name=field />)
+			return (<CheckboxField {...this.props} name={field} />)
 		});
 		return inspectionJst
 	}
 	
 	render () {
 		return (
-			<title>{ match.params.id }</title>
 			<Form horizontal onSubmit={ this.submit } autoComplete="off" >
 				{ this.buildInspection() }
 			</Form>

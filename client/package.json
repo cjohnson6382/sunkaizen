@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*@(.js|.jsx)\""
+    "babel": "babel --presets es2015 js/main.js -o dist/bundle.js",
+    "start": "http-server",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*@(.js|.jsx)\"",
+    "webpack": "webpack"
   },
   "author": "",
   "license": "ISC",
